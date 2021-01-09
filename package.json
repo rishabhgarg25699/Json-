@@ -2,9 +2,10 @@
   "name": "jsondb",
   "version": "1.0.0",
   "description": "A rest API server for storing data in JSON file, it is a informative project for learning CRUD operations, HTTP status",
-  "main": "index.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "dev": "DEBUG=jsonDb:server nodemon ./src/bin/www.js",
+    "start":"DEBUG=jsonDb:server node ./src/bin/www.js"
   },
   "repository": {
     "type": "git",
@@ -23,9 +24,11 @@
   },
   "homepage": "https://github.com/rishabhgarg25699/Json-#readme",
   "dependencies": {
+    "cookie-parser": "^1.4.5",
     "debug": "^4.3.1",
     "dotenv": "^8.2.0",
     "express": "^4.17.1",
+    "jsonwebtoken": "^8.5.1",
     "morgan": "^1.10.0"
   }
 }

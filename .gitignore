@@ -1,2 +1,3 @@
 .env
 /src/configs/config.js
+./node_modules
