@@ -22,13 +22,31 @@ const saveUserData = (data) => {
 //*********** **************** ***********//
 
 
-/* Read - GET method */
+/* ********************** Read - GET method ********************* */
 app.get('/user/list', (req, res) => {
   const users = getUserData()
   res.send(users)
 })
 
-/* Create - POST method */
+/* ********************** Filtering GET /posts?title=title1&author=CIQ - GET method ********************* */
+
+app.get('/user/list?title=title1&author=CIQ', (req, res) => {
+  const existusers = getUserData();
+})
+
+/* ********************** Filtering GET /posts?_sort=views&_order=asc - GET method ********************* */
+
+app.get('/user/list?title=title1&author=CIQ', (req, res) => {
+  const existusers = getUserData();
+})
+
+/* ********************** Filtering GET /posts?q=IQ - GET method ********************* */
+
+app.get('/user/list?title=title1&author=CIQ', (req, res) => {
+  const existusers = getUserData();
+})
+
+/* ********************** Create - POST method ********************** */
 app.post('/user/add', (req, res) => {
   const existUsers = getUserData()
   //get the new user data from post request
@@ -46,7 +64,7 @@ app.post('/user/add', (req, res) => {
   res.send({success: true, msg: 'User data added successfully'})
 })
 
-/* Update - Patch method */
+/* ********************** Update - Patch method ********************** */
 app.patch('/user/update/:username', (req, res) => {
   //get the username from url
   const username = req.params.username
@@ -69,7 +87,7 @@ app.patch('/user/update/:username', (req, res) => {
   res.send({success: true, msg: 'User data updated successfully'})
 })
 
-/* Delete - Delete method */
+/* ********************** Delete - Delete method ********************** */
 app.delete('/user/delete/:username', (req, res) => {
   const username = req.params.username
   //get the existing userdata
