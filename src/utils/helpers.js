@@ -11,9 +11,7 @@ const getEntityFromData = (entities, data) => {
 
 const fliterData = (data, params) => {
   if(Array.isArray(data)) {
-    data = data.filter((d) =>{
-      Object.keys(params).some((paramKey) => d[paramKey] === params[paramKey]));
-    } 
+    data = data.filter((d) => Object.keys(params).some((paramKey) => d[paramKey] === params[paramKey]));
     return data;
   }
 }
