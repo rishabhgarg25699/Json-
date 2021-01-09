@@ -1,17 +1,31 @@
 {
-  "name": "project",
+  "name": "jsondb",
   "version": "1.0.0",
-  "description": "",
-  "main": "server.js",
+  "description": "A rest API server for storing data in JSON file, it is a informative project for learning CRUD operations, HTTP status",
+  "main": "index.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1",
-    "start": "node server.js"
+    "test": "echo \"Error: no test specified\" && exit 1"
   },
-  "author": "",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/rishabhgarg25699/Json-.git"
+  },
+  "keywords": [
+    "json-db",
+    "json",
+    "rest",
+    "api"
+  ],
+  "author": "Rishabh Garg (rishabhgarg25699@gmail.com)",
   "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/rishabhgarg25699/Json-/issues"
+  },
+  "homepage": "https://github.com/rishabhgarg25699/Json-#readme",
   "dependencies": {
+    "debug": "^4.3.1",
+    "dotenv": "^8.2.0",
     "express": "^4.17.1",
-    "jsonwebtoken": "^8.5.1",
-    "nodemon": "^2.0.7"
+    "morgan": "^1.10.0"
   }
 }
