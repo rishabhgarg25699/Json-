@@ -17,8 +17,17 @@ class DB {
     return JSON.parse(DB.#data);
   }
 
-  static save(data) {
-    // saves data back to file
+  static async save(data) {
+    try {
+      console.log(data);
+      DB.#data = JSON.stringify(data);
+      console.log(DB.#data);
+      await fs.writeFile("/home/onbit-syn/onbit/Json-/data/store.json",this.#data);
+
+    } catch(err) {
+      console.log(err)
+      console.error("error occured while adding data");
+    }   
   }
 
 }

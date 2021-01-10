@@ -4,7 +4,7 @@
   "description": "A rest API server for storing data in JSON file, it is a informative project for learning CRUD operations, HTTP status",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
-    "dev": "DEBUG=jsonDb:server nodemon ./src/bin/www.js",
+    "dev": "DEBUG=jsonDb:server nodemon --ignore './data/' ./src/bin/www.js",
     "start": "DEBUG=jsonDb:server node ./src/bin/www.js"
   },
   "repository": {

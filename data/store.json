@@ -1,3 +1,1 @@
-{
-  "marks": [23, 12, 34]
-}
+{"class":[{"name":"anubhav"},{"studentId":2,"studentName":"rishabh","marks":[11,12,13,14]},{"studentId":3,"studentName":"manik","marks":[1,5,8,2]},{"studentId":3,"studentName":"aman","marks":[1,5,8,2],"id":1610299666322}],"my":{"name":"unknown","studentId":3,"studentName":"manik","marks":[1,5,8,2]}}

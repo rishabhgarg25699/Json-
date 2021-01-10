@@ -11,6 +11,7 @@ const getEntityFromData = (entities, data) => {
   return data; 
 }
 
+
 /**
  * checks whether it is an object or not. 
  * 
