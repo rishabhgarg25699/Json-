@@ -1,8 +1,3 @@
 {
-  "peoples": {
-    "names": ["anubhav", "rishabh", "manik", "arihant", "happyness"],
-    "category": "programmers",
-    "batch": "2021",
-    "college": "GL Bajaj Greater Noida"
-  } 
+  "marks": [23, 12, 34]
 }

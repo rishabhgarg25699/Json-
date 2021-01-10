@@ -67,6 +67,9 @@ const filterData = (data, params) => {
   });
   return data;
 }
+const isNumber = (val) => {
+  return typeof val === 'number' && isFinite(val);
+}
 
 /**
  * Logic for filtering, searching and sorting data.
@@ -76,9 +79,24 @@ const aggregateIfParams = (data, params) => {
   if(Object.keys(params).length === 0) {
     return data;
   }
-
-  const filteredData = filterData(data, params);
-  return filteredData;
+  if(!params["_sort"]) {
+    const filteredData = filterData(data, params);
+    return filteredData;
+  }
+  let order = params["_order"] === "asc" ? 0 : 1; 
+  data.sort((a, b) => {
+    let val;
+    if(isNumber(a) && isNumber(b)) {
+      val = a-b;
+    }
+    else {
+      if(a < b) val= -1;
+      else if(a > b) val = 1;
+      else val = 0;
+    }
+    return val * Math.pow(-1, order);
+  });
+  return data;
 }
 
 module.exports = {
