@@ -5,9 +5,10 @@
  */
 
 const app = require('../app');
-const debugLib  = require('debug');
+const debugLib = require('debug');
 const http = require('http');
 const debug = debugLib('jsonDb:server');
+const DB = require("../db");
 require('dotenv').config();
 
 /**
@@ -23,13 +24,7 @@ app.set('port', port);
 
 var server = http.createServer(app);
 
-/**
- * Listen on provided port, on all network interfaces.
- */
 
-server.listen(port);
-server.on('error', onError);
-server.on('listening', onListening);
 
 /**
  * Normalize a port into a number, string, or false.
@@ -90,4 +85,19 @@ function onListening() {
 }
 
 
+
+async function startServer() {
+  try {
+    await DB.init();
+    
+    server.listen(port);
+    server.on('error', onError);
+    server.on('listening', onListening);
+
+  } catch (err) {
+    console.error(err);
+  }
+}
+
+startServer();
 

@@ -1,32 +1,8 @@
 {
-  "p": [
-    {
-      "id": 0,
-      "title": "title1",
-      "author": "CIQ",
-      "views": 100,
-      "reviews": 32
-    },
-    {
-      "id": 1,
-      "title": "title2",
-      "author": "CommereceQ",
-      "views": 10,
-      "reviews": 3
-    }
-  ],
-  "authors": [
-    {
-      "id": 0,
-      "first_name": "rishabh garg",
-      "last_name": "IQ",
-      "posts": 45
-    },
-    {
-      "id": 1,
-      "first_name": "rishabh garg",
-      "last_name": "IQ",
-      "posts": 45
-    }
-  ]
+  "peoples": {
+    "names": ["anubhav", "rishabh", "manik", "arihant", "happyness"],
+    "category": "programmers",
+    "batch": "2021",
+    "college": "GL Bajaj Greater Noida"
+  } 
 }

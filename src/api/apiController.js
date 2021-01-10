@@ -1,41 +1,35 @@
 
-const db = require("../db.js");
-const { getEntityFromData, fliterData } = require("../utils/helpers");
+const DB = require("../db.js");
+const { getEntityFromData, aggregateIfParams } = require("../utils/helpers");
 
-const read = async (req, res)=> {
-  try {
-    let entities = req.url.split("/");
-         entities =  entities.slice(1, entities.length - 1);
-    const jsonData = await db.getData();
-    
-    let dataToReturn = getEntityFromData(entities, jsonData);
-    
-    if(!dataToReturn) {
-      res.status(400)
-        .json({
-          success: false,
-          message: "Bad Request, No such entity or field exist in db"
-        });
-      return;
-    }
-    
-    if(JSON.stringify(req.query) !== JSON.stringify({})) 
-      dataToReturn = fliterData(dataToReturn, req.query);
+const read = (req, res) => {
 
-    res.status(200)
-      .json({
-        success: true,
-        data: dataToReturn
-      });
+  let entities = req.url.split("/");
+  entities = entities[entities.length - 1] === "" ?
+    entities.slice(1, entities.length - 1) : entities.slice(1);
+  entities = entities.map((entity) => {
+    return entity.split("?").shift();
+  });
 
-  } catch (err) {
-    console.error(err);
-    res.status(500)
+  const jsonData = DB.read();
+
+  let dataToReturn = getEntityFromData(entities, jsonData);
+
+  if (!dataToReturn) {
+    res.status(400)
       .json({
         success: false,
-        message: "Internal Server Error, Something is broken, please notify us!"
+        message: "Bad Request, No such entity or field exist in db"
       });
+    return;
   }
+  dataToReturn = aggregateIfParams(dataToReturn, req.query);
+  console.log(dataToReturn);
+  res.status(200)
+    .json({
+      success: true,
+      data: dataToReturn
+    });
 };
 
 
