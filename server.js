@@ -18,23 +18,22 @@ const saveUserData = (data) => {
 }
 
 app.get('/user/list', (req, res) => {
+  if(req.query.title != undefined && req.query.author != undefined)
+  {
+    const existUsers = getUserData();
+    const findExist = existUsers.find( user => user.title === userData.title && user.author === userData.author)
+    if (!findExist) {
+      return res.status(409).send({error: true, msg: 'Not exist'})
+    }
+    else
+    {
+      res.send(findExist);
+    }
+  }
+  console.log(req.query.title);
+  console.log(req.query.author);
   const users = getUserData()
   res.send(users)
-})
-
-/* ********************** Filtering GET /posts?title=title1&author=CIQ - GET method ********************* */
-app.get('/user/list?title=title1&author=CIQ', (req, res) => {
-  const existusers = getUserData();
-})
-
-/* ********************** Filtering GET /posts?_sort=views&_order=asc - GET method ********************* */
-app.get('/user/list?title=title1&author=CIQ', (req, res) => {
-  const existusers = getUserData();
-})
-
-/* ********************** Filtering GET /posts?q=IQ - GET method ********************* */
-app.get('/user/list?title=title1&author=CIQ', (req, res) => {
-  const existusers = getUserData();
 })
 
 app.post('/user/add', (req, res) => {
