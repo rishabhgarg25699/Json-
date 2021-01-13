@@ -1,1 +1,56 @@
-{"class":[{"name":"anubhav"},{"studentId":2,"studentName":"rishabh","marks":[11,12,13,14]},{"studentId":3,"studentName":"manik","marks":[1,5,8,2]},{"studentId":3,"studentName":"aman","marks":[1,5,8,2],"id":1610299666322}],"my":{"name":"unknown","studentId":3,"studentName":"manik","marks":[1,5,8,2]}}
+{
+  "_id": "ad",
+
+  "posts": [
+    {
+      "id": 0,
+      "title": "title1",
+      "author": "CIQ",
+      "views": 100,
+      "reviews": 32
+    },
+    {
+      "id": 1,
+      "title": "title2",
+      "author": "CQ",
+      "views": 10,
+      "reviews": 3
+    },
+    {
+      "id": 2,
+      "title": "title3",
+      "author": "abc",
+      "views": 10,
+      "reviews": 3
+    },
+    {
+      "id": 4,
+      "title": "title4",
+      "author": "def",
+      "views": 10,
+      "reviews": 3
+    }
+  ],
+  "authors": [
+    {
+      "id": 0,
+      "first_name": "rishabh garg",
+      "last_name": "IQ",
+      "posts": 45
+    },
+    {
+      "id": 1,
+      "first_name": "rishabh garg",
+      "last_name": "IQ",
+      "posts": 45
+    }
+  ],
+  "student": {
+    "name": "Anubhav Vats",
+    "sex": "male",
+    "age": 23,
+    "students": [
+      
+    ]
+  }
+}
