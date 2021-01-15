@@ -12,5 +12,5 @@ app.use(cookieParser());
 
 app.get("/*", apiCntrl.read);
 app.post("/*", apiCntrl.post);
-app.delete("/*", apiCntrl.del);
+
 module.exports = app;

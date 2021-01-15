@@ -1,56 +1,20 @@
 {
-  "_id": "ad",
-
-  "posts": [
+  "students": 
+  [
     {
-      "id": 0,
-      "title": "title1",
-      "author": "CIQ",
-      "views": 100,
-      "reviews": 32
+      "name": "anubhav vats",
+      "age": 23,
+      "subjects": ["maths", "science", "physics", "biology"]
     },
     {
-      "id": 1,
-      "title": "title2",
-      "author": "CQ",
-      "views": 10,
-      "reviews": 3
+      "name": "rishabh vats",
+      "age": 23,
+      "subjects": ["science", "physics", "biology", "hindi"]
     },
     {
-      "id": 2,
-      "title": "title3",
-      "author": "abc",
-      "views": 10,
-      "reviews": 3
-    },
-    {
-      "id": 4,
-      "title": "title4",
-      "author": "def",
-      "views": 10,
-      "reviews": 3
+      "name": "sunny vats",
+      "age": 23,
+      "subjects": ["science", "physics", "biology"]
     }
-  ],
-  "authors": [
-    {
-      "id": 0,
-      "first_name": "rishabh garg",
-      "last_name": "IQ",
-      "posts": 45
-    },
-    {
-      "id": 1,
-      "first_name": "rishabh garg",
-      "last_name": "IQ",
-      "posts": 45
-    }
-  ],
-  "student": {
-    "name": "Anubhav Vats",
-    "sex": "male",
-    "age": 23,
-    "students": [
-      
-    ]
-  }
+  ]
 }
