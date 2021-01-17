@@ -13,5 +13,6 @@ app.use(cookieParser());
 app.get("/*", apiCntrl.read);
 app.post("/*", apiCntrl.post);
 app.patch("/*", apiCntrl.patch);
+app.put("/*", apiCntrl.put);
 
 module.exports = app;
