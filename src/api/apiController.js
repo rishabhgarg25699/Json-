@@ -25,6 +25,7 @@ module.exports = {
     
     // sorted, searched or filtered data if req.query
     const modifiedData = modifyDataIfParams(data, req.query);
+    
     if (!modifiedData) {
       res.status(400)
         .json({
