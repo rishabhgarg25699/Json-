@@ -10,7 +10,7 @@ class DB {
   }
 
   static async init() {
-    DB.#data = await fs.readFile("/home/onbit-syn/onbit/Json-/data/store.json", { encoding: "utf-8" });
+    DB.#data = await fs.readFile(__dirname + "/../data/store.json", { encoding: "utf-8" });
   }
 
   static read() {
@@ -20,7 +20,7 @@ class DB {
   static async save(data) {
     DB.#data = JSON.stringify(data);
     console.log(DB.#data);
-    await fs.writeFile("/home/onbit-syn/onbit/Json-/data/store.json", this.#data)
+    await fs.writeFile(__dirname + "/../data/store.json", this.#data)
   }
 
 }

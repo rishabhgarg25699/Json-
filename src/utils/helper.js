@@ -54,5 +54,26 @@ module.exports = {
     urlComponents = urlComponents.map((compnt) => compnt.split('?').shift());
   
     return urlComponents;
+  },
+
+  /**
+   * 
+   * @param {*} arr - Stored in store.json 
+   * @param {*} data  - new data to be inserted
+   * @param {*} save - boolean - either to save or not
+   */
+  array: {
+    push: (arr, data) => {
+      arr.push(data);
+    },
+
+    pop: (arr, times) => {
+      while(arr.length > 0 && times > 0) {
+        arr.pop();
+      }
+    }
   }
+  
+
+
 }

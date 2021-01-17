@@ -1,5 +1,5 @@
 const DB = require("../db.js");
-const { modifyDataIfParams, breakUrl } = require("../utils/helper");
+const { modifyDataIfParams, breakUrl, array } = require("../utils/helper");
 const _ = require('lodash');
 
 
@@ -148,11 +148,30 @@ module.exports = {
     }
 
     if (_.isArray(data)) {
-      res.status(400)
-        .json({
-          success: false,
-          message: 'Invalid request method, please update array by using array key. For more details please see documentation'
-        });
+      if(! array[bodyKey] ) {
+        res.status(400)
+          .json({
+            success:false,
+            message:'Invalid array operation type, please see documentation for more detail'
+          });
+          return;
+      }
+      array[bodyKey](data, bodyVal);
+      try {
+        await DB.save(currentData);
+        res.status(200)
+          .json({
+            success: true,
+            data: data
+          });
+  
+      } catch (err) {
+        res.status(500)
+          .json({
+            success: false,
+            message: 'Something is broke, let me note it and work on it. Thanks for telling me!!'
+          });
+      };
       return;
     }
     // if key already exist
@@ -165,11 +184,8 @@ module.exports = {
       return;
     }
 
-    if (_.isArray(data[bodyKey])) {
-      data[bodyKey].push(bodyVal);
-    } else {
-      data[bodyKey] = bodyVal;
-    }
+    data[bodyKey] = bodyVal;
+    
 
     // saving updated data to data store....
     try {
@@ -223,19 +239,17 @@ module.exports = {
       return;
     }
 
-    if (_.isArray(data)) {
+    if (_.isArray(data) || _.isArray(data[bodyKey])) {
       res.status(400)
         .json({
           success: false,
-          message: 'Invalid request method, please update array by using array key. For more details please see documentation'
+          message: 'Invalid request method, please update array by using array properties. For more details please see documentation'
         });
       return;
     }
-    if (_.isArray(data[bodyKey])) {
-      data[bodyKey].push(bodyVal);
-    } else {
-      data[bodyKey] = bodyVal;
-    }
+
+    data[bodyKey] = bodyVal;
+    
 
     // saving updated data to data store....
     try {
@@ -254,6 +268,65 @@ module.exports = {
         });
     };
 
+  },
+
+  delete: async (req, res) => {
+    const { key } = req.body;
+    if (!key) {
+      res.status(400)
+        .json({
+          success: false,
+          message: "Invalid request body, no key provided to delete value, Please see documentation for more detail"
+        });
+      return;    
+    }
+
+    // storing unique id, later this id can be used to search for data in the complete database..
+    const urlComponents = breakUrl(req.url);
+
+    // deep copy of the current data found in store.json
+    const currentData = DB.read();
+
+    // part of current data as pointed by urlComponents
+    const data = _.isEmpty(urlComponents) ? currentData : _.get(currentData, urlComponents);
+
+    // if parent Entity of the data do not exist
+    if (!data) {
+      res.status(404)
+        .json({
+          success: false,
+          message: 'Invalid path in the object, please see documentation for more detail'
+        });
+      return;
+    }
+
+    if(!_.has(data, key)) {
+      res.status(404)
+        .json({
+          success: false,
+          message: 'No such key ' + key + 'found in database'
+        });
+      return;
+    }
+
+    delete data[key];
+
+    // saving updated data to data store....
+    try {
+      await DB.save(currentData);
+      res.status(200)
+        .json({
+          success: true,
+          data: data
+        });
+
+    } catch (err) {
+      res.status(500)
+        .json({
+          success: false,
+          message: 'Something is broke, let me note it and work on it. Thanks for telling me!!'
+        });
+    };
   }
 };
 
