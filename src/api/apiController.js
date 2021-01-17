@@ -75,6 +75,7 @@ module.exports = {
         });
       return;
     }
+
     if(_.isArray(data)) {
       res.status(400)
         .json({
@@ -114,8 +115,71 @@ module.exports = {
   },
 
   patch: async (req, res)=> {
+    if(_.keys(req.body).length !== 1 ) {
+      res.status(400)
+        .json({
+          success: false,
+          message: 'Request body must be single value pair, where key must be string and value can be of any type'
+        });
+        return;
+    }
+    // getting key of data in request payload.
+    const bodyKey = _.keys(req.body).shift();
+    
+    const bodyVal = req.body[bodyKey];
+    
+    // storing unique id, later this id can be used to search for data in the complete database..
+    const urlComponents = breakUrl(req.url);
 
-  }
+    // deep copy of the current data found in store.json
+    const currentData = DB.read();
+    
+    // part of current data as pointed by urlComponents
+    const data = _.isEmpty(urlComponents) ? currentData : _.get(currentData, urlComponents);
+    
+    // if parent Entity of the data do not exist
+    if (!data) {
+      res.status(404)
+        .json({
+          success: false,
+          message: 'Invalid path in the object, please see documentation for more detail'
+        });
+      return;
+    }
+    // if key already exist
+    if(!_.has(data, bodyKey)) {
+      res.status(400)
+        .json({
+          success: true,
+          message: 'Wrong request method, PATCH method cannot create new content, can only update it'
+        });
+        return;
+    }
+
+    if(_.isArray(data[bodyKey])) {
+      data[bodyKey].push(bodyVal);
+    } else {
+      data[bodyKey] = bodyVal;
+    }
+
+    // saving updated data to data store....
+    try{
+      await DB.save(currentData);
+      res.status(200)
+      .json({
+        success: true,
+        data: data
+      });
+
+    } catch(err) {
+      res.status(500)
+        .json({
+          success: false,
+          message: 'Something is broke, let me note it and work on it. Thanks for telling me!!'
+        });
+    };
+    
+  } 
 };
 
 
