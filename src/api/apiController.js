@@ -1,7 +1,6 @@
 const DB = require("../db.js");
 const {modifyDataIfParams, breakUrl} = require("../utils/helper");
 const _ = require('lodash');
-const { v4: uuidv4 } = require('uuid');
 
 
 module.exports = {
@@ -10,12 +9,11 @@ module.exports = {
 
     // deep copy of the current data found in store.json
     const currentData = DB.read();
-    console.log(currentData);
-    // shallow copy of the part of current data as pointed by urlComponents
-    console.log(urlComponents);
-    console.log(_.isEmpty(urlComponents));
+    
+    // part of current data as pointed by urlComponents
     const data = _.isEmpty(urlComponents) ? currentData : _.get(currentData, urlComponents);
-    console.log(data);
+    
+    // if the data pointed by the request url do not exist
     if (!data) {
       res.status(404)
         .json({
@@ -44,6 +42,7 @@ module.exports = {
   },
 
   post: async function(req, res) {
+    // validating the request body which must be single key value pair
     if(_.keys(req.body).length !== 1 ) {
       res.status(400)
         .json({
@@ -52,30 +51,38 @@ module.exports = {
         });
         return;
     }
+    // getting key of data in request payload.
     const bodyKey = _.keys(req.body).shift();
     
     const bodyVal = req.body[bodyKey];
     
-    bodyVal._id = uuidv4();
-    
-
+    // storing unique id, later this id can be used to search for data in the complete database..
     const urlComponents = breakUrl(req.url);
 
     // deep copy of the current data found in store.json
     const currentData = DB.read();
     
-    // shallow copy of the part of current data as pointed by urlComponents
-    const data = _.get(currentData, urlComponents);
+    // part of current data as pointed by urlComponents
+    const data = _.isEmpty(urlComponents) ? currentData : _.get(currentData, urlComponents);
     
+    // if parent Entity of the data do not exist
     if (!data) {
       res.status(404)
         .json({
           success: false,
-          message: 'Unable to find the location where to add data, please see documentation for more detail'
+          message: 'Invalid path in the object, please see documentation for more detail'
         });
       return;
     }
-
+    if(_.isArray(data)) {
+      res.status(400)
+        .json({
+          success: false,
+          message: 'Invalid request method, cannot add key-value pair to existing data, kindly use PUT or PATCH method'
+        })
+      return;
+    }
+    // if key already exist
     if(_.has(data, bodyKey)) {
       res.status(400)
         .json({
@@ -84,7 +91,9 @@ module.exports = {
         });
         return;
     }
+
     data[bodyKey] = bodyVal;
+    // saving updated data to data store....
     try{
       await DB.save(currentData);
       res.status(201)
@@ -99,7 +108,11 @@ module.exports = {
           success: false,
           message: 'Something is broke, let me note it and work on it. Thanks for telling me!!'
         });
-    }
+    };
+
+  },
+
+  patch: async (req, res)=> {
 
   }
 };

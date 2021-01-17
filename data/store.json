@@ -1,20 +1,3 @@
 {
-  "students": 
-  [
-    {
-      "name": "anubhav vats",
-      "age": 23,
-      "subjects": ["maths", "science", "physics", "biology"]
-    },
-    {
-      "name": "rishabh vats",
-      "age": 23,
-      "subjects": ["science", "physics", "biology", "hindi"]
-    },
-    {
-      "name": "sunny vats",
-      "age": 23,
-      "subjects": ["science", "physics", "biology"]
-    }
-  ]
+  "name": "anubhav"
 }
