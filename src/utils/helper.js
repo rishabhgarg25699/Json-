@@ -71,9 +71,25 @@ module.exports = {
       while(arr.length > 0 && times > 0) {
         arr.pop();
       }
+    },
+
+    shift: (arr, times) => {
+      while(arr.length > 0 && times > 0) {
+        arr.shift();
+      }
+    }, 
+
+    beg: (arr, data) => {
+      arr.unshift(data);
+    },
+
+    sort: (arr, data) => {
+      if(data === 'asc') {
+        arr.sort(function(a, b){return a-b});
+      }
+      else {
+        arr.sort(function(a, b){return b-a});
+      }
     }
   }
-  
-
-
 }
