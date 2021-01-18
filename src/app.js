@@ -14,5 +14,6 @@ app.get("/*", apiCntrl.read);
 app.post("/*", apiCntrl.post);
 app.patch("/*", apiCntrl.patch);
 app.put("/*", apiCntrl.put);
+app.delete("/*", apiCntrl.delete);
 
 module.exports = app;

@@ -16,7 +16,7 @@ const sortData = (data, cond) => {
 }
  
 module.exports = {
- 
+  // to-do remove this function it is not needed now
   modifyDataIfParams: function(data, params) {
     // do nothing if params are not present
     if(_.isEmpty(params)) return data;
@@ -63,19 +63,23 @@ module.exports = {
    * @param {*} save - boolean - either to save or not
    */
   array: {
+    // to-do return values which can be used to tell if operation successful or not
     push: (arr, data) => {
       arr.push(data);
+      return data;
     },
-
+    // to-do times must be a integer ...
     pop: (arr, times) => {
       while(arr.length > 0 && times > 0) {
         arr.pop();
+        times--;
       }
     },
 
     shift: (arr, times) => {
       while(arr.length > 0 && times > 0) {
         arr.shift();
+        times--;
       }
     }, 
 

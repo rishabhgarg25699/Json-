@@ -22,7 +22,11 @@ module.exports = {
         });
       return;
     }
-
+    // TO-do
+    // there will be change in the way the res api works, instead of req.query,
+    // req.body will be used to get data
+    // example 
+    // {sort: "asc"}
     // sorted, searched or filtered data if req.query
     const modifiedData = modifyDataIfParams(data, req.query);
 
@@ -156,6 +160,7 @@ module.exports = {
           });
           return;
       }
+      // to do there must be error handling.....
       array[bodyKey](data, bodyVal);
       try {
         await DB.save(currentData);
